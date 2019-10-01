@@ -10,6 +10,9 @@ public:
 	int Run();
 
 private:
+	void Update();
+	void Draw();
+private:	
 	Window wnd;
 };
 

@@ -2,6 +2,10 @@
 #include <memory.h>
 
 
+Window::Window()
+{
+}
+
 Window::Window(HINSTANCE hInstance, LPCWSTR titleName, int width, int height)
 {
 	WNDCLASSEXW wcex;
@@ -28,7 +32,7 @@ Window::Window(HINSTANCE hInstance, LPCWSTR titleName, int width, int height)
 	R.bottom = height + R.top;
 
 	AdjustWindowRect(&R, WS_OVERLAPPEDWINDOW, false);
-	HWND hWnd = CreateWindow(szWindowClass, titleName,
+	hWnd = CreateWindow(szWindowClass, titleName,
 		WS_OVERLAPPEDWINDOW, CW_USEDEFAULT, CW_USEDEFAULT, R.right - R.left, R.bottom - R.top, nullptr, nullptr, hInstance, nullptr);
 
 	if(!hWnd)
@@ -38,12 +42,19 @@ Window::Window(HINSTANCE hInstance, LPCWSTR titleName, int width, int height)
 
 	ShowWindow(hWnd, SW_SHOWDEFAULT);
 	UpdateWindow(hWnd);
+
+	gfx = std::make_unique<Graphics>(hWnd);
 }
 
 
 Window::~Window()
 {
 	DestroyWindow(hWnd);
+}
+
+Graphics & Window::Gfx()
+{
+	return *gfx;
 }
 
 LRESULT CALLBACK Window::WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)

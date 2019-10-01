@@ -32,3 +32,4 @@
 *.app
 DxApp/Debug/
 DxApp/.vs/
+*.cso

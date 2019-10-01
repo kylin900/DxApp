@@ -4,6 +4,7 @@ App::App(HINSTANCE hInstance)
 	:
 	wnd(hInstance, L"Test", 800, 600)
 {
+
 }
 
 App::~App()
@@ -12,14 +13,29 @@ App::~App()
 
 int App::Run()
 {
-	MSG msg;
-	while(GetMessage(&msg, nullptr, 0, 0))
+	MSG msg = {0};
+	while(msg.message != WM_QUIT)
 	{
-		if(!TranslateAccelerator(msg.hwnd, 0, &msg))
+		if(PeekMessage(&msg, 0, 0, 0, PM_REMOVE))
 		{
 			TranslateMessage(&msg);
 			DispatchMessage(&msg);
 		}
+		else
+		{
+			Update();
+			Draw();
+		}
 	}
 	return (int)msg.wParam;
+}
+
+void App::Update()
+{
+}
+
+void App::Draw()
+{
+	wnd.Gfx().Test();
+	wnd.Gfx().EndFrame();
 }
