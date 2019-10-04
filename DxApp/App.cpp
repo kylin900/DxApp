@@ -4,7 +4,6 @@ App::App(HINSTANCE hInstance)
 	:
 	wnd(hInstance, L"Test", 800, 600)
 {
-
 }
 
 App::~App()
@@ -36,6 +35,7 @@ void App::Update()
 
 void App::Draw()
 {
-	wnd.Gfx().Test();
+	wnd.Gfx().ClearBuffer();
+	wnd.Gfx().Test(1.0f, 0.0f, 0.0f, 0.0f);
 	wnd.Gfx().EndFrame();
 }
