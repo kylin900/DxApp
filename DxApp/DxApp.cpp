@@ -3,13 +3,25 @@
 
 #include "DxApp.h"
 #include "App.h"
+#include "DxUtil.h"
 
 int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 	_In_opt_ HINSTANCE hPrevInstance,
 	_In_ LPWSTR    lpCmdLine,
 	_In_ int       nCmdShow)
 {
-	App app(hInstance);
-	return app.Run();
+	try
+	{		
+		App app(hInstance);
+
+		app.Run();
+		return 0;
+	}
+	catch(DxException& e)
+	{
+		MessageBox(nullptr, e.ToString().c_str(), L"HR Failed", MB_OK);
+		return 0;
+	}
+	return 0;
 }
 

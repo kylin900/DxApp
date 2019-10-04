@@ -1,7 +1,6 @@
 #include "Window.h"
 #include <memory.h>
 
-
 Window::Window()
 {
 }

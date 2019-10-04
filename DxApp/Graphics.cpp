@@ -1,4 +1,5 @@
 #include "Graphics.h"
+#include "DxUtil.h"
 #include <sstream>
 #include <d3dcompiler.h>
 #include <DirectXColors.h>
@@ -32,7 +33,7 @@ Graphics::Graphics(HWND hWnd)
 		D3D_FEATURE_LEVEL_11_0
 	};
 
-	HRESULT hardwareResult = D3D11CreateDeviceAndSwapChain(
+	ThrowIfFailed(D3D11CreateDeviceAndSwapChain(
 		nullptr,
 		D3D_DRIVER_TYPE_HARDWARE,
 		nullptr,
@@ -45,11 +46,11 @@ Graphics::Graphics(HWND hWnd)
 		&pDevice,
 		nullptr,
 		&pContext
-	);
+	));
 
 	Microsoft::WRL::ComPtr<ID3D11Resource> backBuffer;
-	mSwapChain->GetBuffer(0, __uuidof( ID3D11Resource ), &backBuffer);
-	pDevice->CreateRenderTargetView(backBuffer.Get(), nullptr, &pTarget);
+	ThrowIfFailed(mSwapChain->GetBuffer(0, __uuidof( ID3D11Resource ), &backBuffer));
+	ThrowIfFailed(pDevice->CreateRenderTargetView(backBuffer.Get(), nullptr, &pTarget));
 
 	// create depth stensil state
 	D3D11_DEPTH_STENCIL_DESC dsDesc = {};
@@ -57,7 +58,7 @@ Graphics::Graphics(HWND hWnd)
 	dsDesc.DepthWriteMask = D3D11_DEPTH_WRITE_MASK_ALL;
 	dsDesc.DepthFunc = D3D11_COMPARISON_LESS;
 	wrl::ComPtr<ID3D11DepthStencilState> pDSState;
-	pDevice->CreateDepthStencilState(&dsDesc, &pDSState);
+	ThrowIfFailed(pDevice->CreateDepthStencilState(&dsDesc, &pDSState));
 
 	// bind depth state
 	pContext->OMSetDepthStencilState(pDSState.Get(), 1u);
@@ -74,16 +75,16 @@ Graphics::Graphics(HWND hWnd)
 	descDepth.SampleDesc.Quality = 0u;
 	descDepth.Usage = D3D11_USAGE_DEFAULT;
 	descDepth.BindFlags = D3D11_BIND_DEPTH_STENCIL;
-	pDevice->CreateTexture2D(&descDepth, nullptr, &pDepthStencil);
+	ThrowIfFailed(pDevice->CreateTexture2D(&descDepth, nullptr, &pDepthStencil));
 
 	// create view of depth stensil texture
 	D3D11_DEPTH_STENCIL_VIEW_DESC descDSV = {};
 	descDSV.Format = DXGI_FORMAT_D32_FLOAT;
 	descDSV.ViewDimension = D3D11_DSV_DIMENSION_TEXTURE2D;
 	descDSV.Texture2D.MipSlice = 0u;
-	pDevice->CreateDepthStencilView(
+	ThrowIfFailed(pDevice->CreateDepthStencilView(
 		pDepthStencil.Get(), &descDSV, &pDSV
-	);
+	));
 
 	// bind depth stensil view to OM
 	pContext->OMSetRenderTargets(1u, pTarget.GetAddressOf(), pDSV.Get());
@@ -91,7 +92,7 @@ Graphics::Graphics(HWND hWnd)
 
 void Graphics::EndFrame()
 {
-	mSwapChain->Present(0, 0);
+	mSwapChain->Present(0, 0);	
 }
 
 void Graphics::ClearBuffer() noexcept
@@ -138,7 +139,7 @@ void Graphics::Test(float angle, float x, float y, float z)
 	bd.StructureByteStride = sizeof(Vertex);
 	D3D11_SUBRESOURCE_DATA sd = {};
 	sd.pSysMem = vertices;
-	pDevice->CreateBuffer(&bd, &sd, &pVertexBuffer);
+	ThrowIfFailed(pDevice->CreateBuffer(&bd, &sd, &pVertexBuffer));
 
 	// Bind vertex buffer to pipeline
 	const UINT stride = sizeof(Vertex);
@@ -166,7 +167,7 @@ void Graphics::Test(float angle, float x, float y, float z)
 	ibd.StructureByteStride = sizeof(unsigned short);
 	D3D11_SUBRESOURCE_DATA isd = {};
 	isd.pSysMem = indices;
-	pDevice->CreateBuffer(&ibd, &isd, &pIndexBuffer);
+	ThrowIfFailed(pDevice->CreateBuffer(&ibd, &isd, &pIndexBuffer));
 
 	pContext->IASetIndexBuffer(pIndexBuffer.Get(), DXGI_FORMAT_R16_UINT, 0u);
 
@@ -196,7 +197,7 @@ void Graphics::Test(float angle, float x, float y, float z)
 	cbd.StructureByteStride = 0u;
 	D3D11_SUBRESOURCE_DATA csd = {};
 	csd.pSysMem = &cb;
-	pDevice->CreateBuffer(&cbd, &csd, &pConstantBuffer);
+	ThrowIfFailed(pDevice->CreateBuffer(&cbd, &csd, &pConstantBuffer));
 
 	// bind constant buffer to vertex shader
 	pContext->VSSetConstantBuffers(0u, 1u, pConstantBuffer.GetAddressOf());
@@ -234,7 +235,7 @@ void Graphics::Test(float angle, float x, float y, float z)
 	cbd2.StructureByteStride = 0u;
 	D3D11_SUBRESOURCE_DATA csd2 = {};
 	csd2.pSysMem = &cb2;
-	pDevice->CreateBuffer(&cbd2, &csd2, &pConstantBuffer2);
+	ThrowIfFailed(pDevice->CreateBuffer(&cbd2, &csd2, &pConstantBuffer2));
 
 	// bind constant buffer to pixel shader
 	pContext->PSSetConstantBuffers(0u, 1u, pConstantBuffer2.GetAddressOf());
@@ -242,16 +243,16 @@ void Graphics::Test(float angle, float x, float y, float z)
 	// create pixel shader
 	wrl::ComPtr<ID3D11PixelShader> pPixelShader;
 	wrl::ComPtr<ID3DBlob> pBlob;
-	D3DReadFileToBlob(L"PixelShader.cso", &pBlob);
-	pDevice->CreatePixelShader(pBlob->GetBufferPointer(), pBlob->GetBufferSize(), nullptr, &pPixelShader);
+	ThrowIfFailed(D3DReadFileToBlob(L"PixelShader.cso", &pBlob));
+	ThrowIfFailed(pDevice->CreatePixelShader(pBlob->GetBufferPointer(), pBlob->GetBufferSize(), nullptr, &pPixelShader));
 
 	// bind pixel shader
 	pContext->PSSetShader(pPixelShader.Get(), nullptr, 0u);
 
 	// create vertex shader
 	wrl::ComPtr<ID3D11VertexShader> pVertexShader;
-	D3DReadFileToBlob(L"VertexShader.cso", &pBlob);
-	pDevice->CreateVertexShader(pBlob->GetBufferPointer(), pBlob->GetBufferSize(), nullptr, &pVertexShader);
+	ThrowIfFailed(D3DReadFileToBlob(L"VertexShader.cso", &pBlob));
+	ThrowIfFailed(pDevice->CreateVertexShader(pBlob->GetBufferPointer(), pBlob->GetBufferSize(), nullptr, &pVertexShader));
 
 	// bind vertex shader
 	pContext->VSSetShader(pVertexShader.Get(), nullptr, 0u);
@@ -262,12 +263,12 @@ void Graphics::Test(float angle, float x, float y, float z)
 	{
 		{ "Position",0,DXGI_FORMAT_R32G32B32_FLOAT,0,0,D3D11_INPUT_PER_VERTEX_DATA,0 },
 	};
-	pDevice->CreateInputLayout(
+	ThrowIfFailed(pDevice->CreateInputLayout(
 		ied, (UINT)std::size(ied),
 		pBlob->GetBufferPointer(),
 		pBlob->GetBufferSize(),
 		&pInputLayout
-	);
+	));
 
 	// bind vertex layout
 	pContext->IASetInputLayout(pInputLayout.Get());
@@ -289,4 +290,6 @@ void Graphics::Test(float angle, float x, float y, float z)
 	pContext->RSSetViewports(1u, &vp);
 
 	pContext->DrawIndexed((UINT)std::size(indices), 0u, 0u);
+
+	
 }

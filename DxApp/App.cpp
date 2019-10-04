@@ -4,6 +4,7 @@ App::App(HINSTANCE hInstance)
 	:
 	wnd(hInstance, L"Test", 800, 600)
 {
+
 }
 
 App::~App()
