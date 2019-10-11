@@ -30,6 +30,9 @@ int App::Run()
 	return (int)msg.wParam;
 }
 
+static float xx = 0;
+static float yy = 0;
+
 void App::Update()
 {
 }
@@ -38,5 +41,13 @@ void App::Draw()
 {
 	wnd.Gfx().ClearBuffer();
 	wnd.Gfx().Test(1.0f, 0.0f, 0.0f, 0.0f);
+
+	wnd.Gfx().Test(
+		timer.Peek(),
+		wnd.mouse.GetPosX() / 400.0f - 1.0f,
+		-wnd.mouse.GetPosY() / 300.0f + 1.0f,
+		0.0f
+	);
+
 	wnd.Gfx().EndFrame();
 }
