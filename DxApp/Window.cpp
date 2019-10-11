@@ -34,13 +34,7 @@ Window::Window(HINSTANCE hInstance, LPCWSTR titleName, int width, int height)
 	hWnd = CreateWindow(szWindowClass, titleName,
 		WS_OVERLAPPEDWINDOW, CW_USEDEFAULT, CW_USEDEFAULT, R.right - R.left, R.bottom - R.top, nullptr, nullptr, hInstance, nullptr);
 
-	if(!hWnd)
-	{
-		// TODO : exception
-	}
-
 	ShowWindow(hWnd, SW_SHOWDEFAULT);
-	UpdateWindow(hWnd);
 
 	gfx = std::make_unique<Graphics>(hWnd);
 }
