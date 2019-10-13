@@ -1,7 +1,14 @@
 #pragma once
 
+#include "DxUtil.h"
 #include <d3d11.h>
+#include <d3dcompiler.h>
 #include <wrl.h>
+#include <vector>
+#include <memory>
+#include <random>
+#include <DirectXMath.h>
+
 
 class Graphics
 {
@@ -11,8 +18,11 @@ public:
 	Graphics& operator=(const Graphics&) = delete;
 	void EndFrame();
 	void ClearBuffer() noexcept;
-	void Test(float angle, float x, float y, float z);
-private:
+	void DrawIndexed(UINT count) noexcept( !IS_DEBUG );
+	void SetProjection(DirectX::FXMMATRIX proj) noexcept;
+	DirectX::XMMATRIX GetProjection() const noexcept;
+public:
+	DirectX::XMMATRIX projection;
 	Microsoft::WRL::ComPtr<ID3D11Device> pDevice;
 	Microsoft::WRL::ComPtr<IDXGISwapChain> mSwapChain;
 	Microsoft::WRL::ComPtr<ID3D11DeviceContext> pContext;

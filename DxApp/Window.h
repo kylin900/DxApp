@@ -4,6 +4,7 @@
 #include "Graphics.h"
 #include "Keyboard.h"
 #include "Mouse.h"
+#include <optional>
 #include <memory>
 
 class Window

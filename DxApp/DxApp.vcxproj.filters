@@ -16,6 +16,21 @@
     <Filter Include="Shader">
       <UniqueIdentifier>{707afbdc-73b9-4dd1-bca1-7a7bc57e366a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\Bindable">
+      <UniqueIdentifier>{ba3e1311-be16-4bb9-92e1-279e8a1c9cd1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\Drawable">
+      <UniqueIdentifier>{eceb4048-3436-44ce-bd63-0633e22a7610}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="헤더 파일\Drawable">
+      <UniqueIdentifier>{530db5c5-ad94-47cd-bed1-c4d3c5c94cf4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="헤더 파일\Bindable">
+      <UniqueIdentifier>{fd169a63-06af-4d1e-91b8-40febccb2d57}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="헤더 파일\Geometry">
+      <UniqueIdentifier>{7d8a156c-45ef-42ba-bd22-515773fa33e0}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -48,6 +63,12 @@
     <ClInclude Include="Mouse.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
+    <ClInclude Include="Cube.h">
+      <Filter>헤더 파일\Geometry</Filter>
+    </ClInclude>
+    <ClInclude Include="IndexedTriangleList.h">
+      <Filter>헤더 파일\Geometry</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -76,6 +97,36 @@
     </ClCompile>
     <ClCompile Include="Mouse.cpp">
       <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Bindable.cpp">
+      <Filter>소스 파일\Bindable</Filter>
+    </ClCompile>
+    <ClCompile Include="Drawable.cpp">
+      <Filter>소스 파일\Drawable</Filter>
+    </ClCompile>
+    <ClCompile Include="Box.cpp">
+      <Filter>소스 파일\Drawable</Filter>
+    </ClCompile>
+    <ClCompile Include="VertexShader.cpp">
+      <Filter>소스 파일\Bindable</Filter>
+    </ClCompile>
+    <ClCompile Include="VertexBuffer.cpp">
+      <Filter>소스 파일\Bindable</Filter>
+    </ClCompile>
+    <ClCompile Include="TransformCbuf.cpp">
+      <Filter>소스 파일\Bindable</Filter>
+    </ClCompile>
+    <ClCompile Include="Topology.cpp">
+      <Filter>소스 파일\Bindable</Filter>
+    </ClCompile>
+    <ClCompile Include="PixelShader.cpp">
+      <Filter>소스 파일\Bindable</Filter>
+    </ClCompile>
+    <ClCompile Include="InputLayout.cpp">
+      <Filter>소스 파일\Bindable</Filter>
+    </ClCompile>
+    <ClCompile Include="IndexBuffer.cpp">
+      <Filter>소스 파일\Bindable</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

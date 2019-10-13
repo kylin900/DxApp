@@ -2,19 +2,20 @@
 
 #include "Window.h"
 #include "Timer.h"
+#include "Drawable.h"
+#include "Box.h"
 
 class App
 {
 public:
 	App(HINSTANCE hInstance);
-	~App();
 	int Run();
 
 private:
-	void Update();
-	void Draw();
+	void DoFrame();
 private:	
 	Window wnd;
 	Timer timer;
+	std::vector<std::unique_ptr<Box>> boxes;
 };
 

@@ -3,6 +3,8 @@
 #include <windows.h>
 #include <string>
 
+constexpr float PI = 3.14159265f;
+
 class DxException
 {
 public:
@@ -18,7 +20,7 @@ public:
 };
 
 #ifndef ThrowIfFailed
-#define ThrowIfFailed(x)                                              \
+#define GFX_THROW_INFO(x)                                              \
 {                                                                     \
     HRESULT hr__ = (x);                                               \
     std::wstring wfn = AnsiToWString(__FILE__);                       \
