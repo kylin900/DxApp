@@ -69,6 +69,42 @@
     <ClInclude Include="IndexedTriangleList.h">
       <Filter>헤더 파일\Geometry</Filter>
     </ClInclude>
+    <ClInclude Include="Bindable.h">
+      <Filter>헤더 파일\Bindable</Filter>
+    </ClInclude>
+    <ClInclude Include="BindableBase.h">
+      <Filter>헤더 파일\Bindable</Filter>
+    </ClInclude>
+    <ClInclude Include="constantbuffers.h">
+      <Filter>헤더 파일\Bindable</Filter>
+    </ClInclude>
+    <ClInclude Include="IndexBuffer.h">
+      <Filter>헤더 파일\Bindable</Filter>
+    </ClInclude>
+    <ClInclude Include="InputLayout.h">
+      <Filter>헤더 파일\Bindable</Filter>
+    </ClInclude>
+    <ClInclude Include="PixelShader.h">
+      <Filter>헤더 파일\Bindable</Filter>
+    </ClInclude>
+    <ClInclude Include="Topology.h">
+      <Filter>헤더 파일\Bindable</Filter>
+    </ClInclude>
+    <ClInclude Include="vertexbuffer.h">
+      <Filter>헤더 파일\Bindable</Filter>
+    </ClInclude>
+    <ClInclude Include="VertexShader.h">
+      <Filter>헤더 파일\Bindable</Filter>
+    </ClInclude>
+    <ClInclude Include="Box.h">
+      <Filter>헤더 파일\Drawable</Filter>
+    </ClInclude>
+    <ClInclude Include="Drawable.h">
+      <Filter>헤더 파일\Drawable</Filter>
+    </ClInclude>
+    <ClInclude Include="DrawableBase.h">
+      <Filter>헤더 파일\Drawable</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -143,10 +179,10 @@
     </Image>
   </ItemGroup>
   <ItemGroup>
-    <FxCompile Include="PixelShader.hlsl">
+    <FxCompile Include="ColorIndexVS.hlsl">
       <Filter>Shader</Filter>
     </FxCompile>
-    <FxCompile Include="VertexShader.hlsl">
+    <FxCompile Include="ColorIndexPS.hlsl">
       <Filter>Shader</Filter>
     </FxCompile>
   </ItemGroup>

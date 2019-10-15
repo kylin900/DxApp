@@ -126,3 +126,13 @@ DirectX::XMMATRIX Graphics::GetProjection() const noexcept
 	return projection;
 }
 
+ID3D11Device* Graphics::GetDevice()
+{
+	return pDevice.Get();
+}
+
+ID3D11DeviceContext* Graphics::GetContext()
+{
+	return pContext.Get();
+}
+

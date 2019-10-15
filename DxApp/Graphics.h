@@ -21,7 +21,9 @@ public:
 	void DrawIndexed(UINT count) noexcept( !IS_DEBUG );
 	void SetProjection(DirectX::FXMMATRIX proj) noexcept;
 	DirectX::XMMATRIX GetProjection() const noexcept;
-public:
+	ID3D11Device* GetDevice();
+	ID3D11DeviceContext* GetContext();
+private:
 	DirectX::XMMATRIX projection;
 	Microsoft::WRL::ComPtr<ID3D11Device> pDevice;
 	Microsoft::WRL::ComPtr<IDXGISwapChain> mSwapChain;
