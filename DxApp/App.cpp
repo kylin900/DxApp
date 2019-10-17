@@ -1,5 +1,4 @@
 #include "App.h"
-#include "Box.h"
 #include <memory>
 
 
@@ -15,9 +14,9 @@ App::App(HINSTANCE hInstance)
 	std::uniform_real_distribution<float> bdist{ 0.4f,3.0f };
 	for(auto i = 0; i < 80; i++)
 	{
-		boxes.push_back(std::make_unique<Box>(
+		boxes.push_back(std::make_unique<SkinnedBox>(
 			wnd.Gfx(), rng, adist, ddist,
-			odist, rdist, bdist
+			odist, rdist
 			));
 	}
 	wnd.Gfx().SetProjection(DirectX::XMMatrixPerspectiveLH(1.0f, 3.0f / 4.0f, 0.5f, 40.0f));
@@ -48,7 +47,7 @@ void App::DoFrame()
 
 	for(auto& b : boxes)
 	{
-		b->Update(dt);
+		b->Update(dt/5);
 		b->Draw(wnd.Gfx());
 	}
 	wnd.Gfx().EndFrame();

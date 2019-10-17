@@ -4,6 +4,7 @@
 #include "Timer.h"
 #include "Drawable.h"
 #include "Box.h"
+#include "SkinnedBox.h"
 
 class App
 {
@@ -16,6 +17,6 @@ private:
 private:	
 	Window wnd;
 	Timer timer;
-	std::vector<std::unique_ptr<Box>> boxes;
+	std::vector<std::unique_ptr<SkinnedBox>> boxes;
 };
 
