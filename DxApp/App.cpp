@@ -1,6 +1,6 @@
 #include "App.h"
 #include <memory>
-
+#include "imgui/imgui.h"
 
 App::App(HINSTANCE hInstance)
 	:
@@ -42,13 +42,24 @@ int App::Run()
 
 void App::DoFrame()
 {
-	const auto dt = timer.Mark();
-	wnd.Gfx().ClearBuffer();
-
+	const auto dt = timer.Mark() * speed_factor;
+	wnd.Gfx().BeginFrame(0.07f, 0.0f, 0.12f);
+	wnd.Gfx().SetCamera(cam.GetMatrix());
 	for(auto& b : boxes)
 	{
-		b->Update(dt/5);
+		b->Update(wnd.kbd.KeyIsPressed(VK_SPACE) ? 0.0f : dt);
 		b->Draw(wnd.Gfx());
 	}
+
+	// imgui window to control simulation speed
+	if(ImGui::Begin("Simulation Speed"))
+	{
+		ImGui::SliderFloat("Speed Factor", &speed_factor, 0.0f, 4.0f);
+		ImGui::Text("%.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
+		ImGui::Text("Status: %s", wnd.kbd.KeyIsPressed(VK_SPACE) ? "PAUSED" : "RUNNING (hold spacebar to pause)");
+	}
+	ImGui::End();
+	cam.SpawnControlWindow();
+
 	wnd.Gfx().EndFrame();
 }
