@@ -150,6 +150,15 @@
     <ClInclude Include="TransformCbuf.h">
       <Filter>헤더 파일\Bindable</Filter>
     </ClInclude>
+    <ClInclude Include="PointLight.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Sphere.h">
+      <Filter>헤더 파일\Geometry</Filter>
+    </ClInclude>
+    <ClInclude Include="SolidSphere.h">
+      <Filter>헤더 파일\Drawable</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -242,6 +251,12 @@
     <ClCompile Include="Camera.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="PointLight.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="SolidSphere.cpp">
+      <Filter>소스 파일\Drawable</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="DxApp.rc">
@@ -261,6 +276,18 @@
       <Filter>Shader</Filter>
     </FxCompile>
     <FxCompile Include="TexturePS.hlsl">
+      <Filter>Shader</Filter>
+    </FxCompile>
+    <FxCompile Include="PhongVS.hlsl">
+      <Filter>Shader</Filter>
+    </FxCompile>
+    <FxCompile Include="PhongPS.hlsl">
+      <Filter>Shader</Filter>
+    </FxCompile>
+    <FxCompile Include="SolidVS.hlsl">
+      <Filter>Shader</Filter>
+    </FxCompile>
+    <FxCompile Include="SolidPS.hlsl">
       <Filter>Shader</Filter>
     </FxCompile>
   </ItemGroup>
